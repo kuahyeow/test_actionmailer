@@ -13,11 +13,15 @@ class UserMailer < ActionMailer::Base
   end
 
   def old_signup
-    @greeting = "Hi"
-
+    recipients "to@example.org"
+    from "from@example.com"
+    subject "Signup"
+    body :greeting => "Hi"
     content_type "multipart/alternative"
 
-    part :content_type => "text/plain", :body => render_message("signup.text.erb", :body => body)
+    part "text/plain" do |p|
+      p.body = render_message("signup.text.erb", :body => body)
+    end
     part :content_type => "multipart/related" do |related|
       related.part :content_type => "text/html", :body => render_message("signup.html.erb", :body => body)
     end

@@ -7,6 +7,8 @@ class UserMailerTest < ActionMailer::TestCase
     assert_equal ["to@example.org"], mail.to
     assert_equal ["from@example.com"], mail.from
     assert_match "Hi", mail.body.encoded
+
+    assert mail.header['content-type'].parameters[:boundary], "Content-Type header '#{mail.header['content-type']}' should have a boundary declaration"
   end
 
   test "signup with actionmailer 3 OldApi" do
@@ -15,6 +17,8 @@ class UserMailerTest < ActionMailer::TestCase
     assert_equal ["to@example.org"], mail.to
     assert_equal ["from@example.com"], mail.from
     assert_match "Hi", mail.body.encoded
+
+    assert mail.header['content-type'].parameters[:boundary], "Content-Type header '#{mail.header['content-type']}' should have a boundary declaration"
   end
 
 end
